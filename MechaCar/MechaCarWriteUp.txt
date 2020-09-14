@@ -114,6 +114,9 @@ These are the considered metrics:
 	- Driver age.
 	- 1/4 mile time (qsec).
 
+All these metrics are of interest to a consumer as they address cost, car performance (fuel efficiency, qsec), 
+design (EV, car type) as well as aesthetics as the color. The driver age was added to anylize also the people  
+to be targeted that could help to take some actions depending on the results. 
 
 QUESTION / HYPOTHESIS / STATISTICAL TEST:
 
