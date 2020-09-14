@@ -1,0 +1,156 @@
+*********************************
+***      MPG REGRESSION       ***
+*********************************
+The output of the execution reads as follows:
+
+		Call:
+		lm(formula = mpg ~ vehicle_length + vehicle_weight + spoiler_angle + 
+			ground_clearance + AWD, data = mechaCarMpg)
+
+		Residuals:
+			 Min       1Q   Median       3Q      Max 
+		-19.4701  -4.4994  -0.0692   5.4433  18.5849 
+
+		Coefficients:
+						   Estimate Std. Error t value Pr(>|t|)    
+		(Intercept)      -1.040e+02  1.585e+01  -6.559 5.08e-08 ***
+		vehicle_length    6.267e+00  6.553e-01   9.563 2.60e-12 ***
+		vehicle_weight    1.245e-03  6.890e-04   1.807   0.0776 .  
+		spoiler_angle     6.877e-02  6.653e-02   1.034   0.3069    
+		ground_clearance  3.546e+00  5.412e-01   6.551 5.21e-08 ***
+		AWD              -3.411e+00  2.535e+00  -1.346   0.1852    
+		---
+		Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+		Residual standard error: 8.774 on 44 degrees of freedom
+		Multiple R-squared:  0.7149,	Adjusted R-squared:  0.6825 
+		F-statistic: 22.07 on 5 and 44 DF,  p-value: 5.35e-11
+
+* VARIABLES WHICH PROVIDE NON-RANDOM AMOUNT OF VARIANCE TO THE MPG:
+Given the results of the multilinear regression we can state that both vehicle length and 
+ground clearance are statistically unlikely to provide random amounts of variance to the mpg.
+This is because, as we can see in column (Pr(>|t|), their values are < than our 
+significance level of 0.05%.
+Furthermore, the fact that the (Pr(>|t|) value of the intercept is also < 0.05 means that there 
+are other variables which have an impact on the mpg. As all variables from out data set have been 
+included in the model, it suggests that additional data is advised to be collected for further 
+analysis.
+
+
+* SLOPE:
+Having in mind that for multilinear regression models we consider:
+H0: The slope of the linear model is zero, or m = 0
+Ha: The slope of the linear model is not zero, or m ≠ 0
+
+The p-value of our linear regression analysis is 5.35e-11, which is much smaller than our assumed
+significance level of 0.05%. Therefore, we can state that there is sufficient evidence to reject our 
+null hypothesis. This means that the slope of our multilinear model is not zero.
+
+
+* PREDICTION EFFECTIVENESS:
+Having a value of Multiple R-squared = 0.7149, we can state that a little over 71% of all mpg predicted
+values will be correct when using this model. Therefore, we can be confidence that almost three quarters of 
+the predicted values will be accurate.
+
+
+
+***********************************
+***   SUSPENSION COIL SUMMARY   ***
+***********************************
+
+* FINDINGS:
+The coilSummary table built shows how three lots have almost equal mean and median but the variance and then 
+standard deviation specially in Lot 3 completely mismatches. Even the second lot variance is already around ten 
+times the first but the third is 220 in comparison. This means each lot had a higher variance than previous, 
+rising uncontrollably on the third lot. So any variation produced on the latter had an extreme impact.
+
+For the above reason, the current manufacturing does not meet the design specifications that the suspension 
+coils must not exceed 100 pounds per inch, as third lot more than doubled it.
+
+NOTE: An additional plot shows graphically how both mean and median are almost constant over the lots while 
+variance and standard deviation clearly differs.
+
+
+***********************************
+***   SUSPENSION COIL T-TEST    ***
+***********************************
+
+Student's T-Test has the hypothesis:
+H0: There is no statistical difference between the observed sample mean and its presumed population mean.
+Ha: There is a statistical difference between the observed sample mean and its presumed population mean.
+
+After applying the t-test in R we have obtained the following:
+		
+		One Sample t-test
+
+		data:  sampleCoil$PSI
+		t = 0.14846, df = 29, p-value = 0.883
+		alternative hypothesis: true mean is not equal to 1499.531
+		95 percent confidence interval:
+		 1495.958 1503.663
+		sample estimates:
+		mean of x 
+		 1499.811
+
+CONCLUSION:
+The results have produced a p-value of 0.883 so being higher than a significance level of 0.05 so we do not 
+have sufficient evidence to reject the null hypothesis so we would state that both means are statistically similar.
+Then the suspension coil’s pound-per-inch results are NOT statistically different from the mean population 
+results of 1,500 pounds per inch.
+NOTE: Several executions have all provided p-values > 0.05.
+
+
+***********************************
+***      OWN STUDY DESIGN       ***
+***********************************
+
+METRICS:
+These are the considered metrics:
+	- Cost. 
+	- Fuel efficiency.
+	- Color options.
+	- Electric Vehicle (EV).
+	- Car type.
+	- Driver age.
+	- 1/4 mile time (qsec).
+
+
+QUESTION / HYPOTHESIS / STATISTICAL TEST:
+
+- Study 1 (Visualization):
+	Q: Have car types any relation to driver age?
+	H:  H0: Car type is directly related to the age of the driver.
+		Ha: Car type has no relation to the age of the driver.
+	T: Layered scatter plot and a line to se id there is a clear relation between car type and driver age.
+
+- Study 2 (Visualization):
+	Q: Is there any relation between the color of the car and the driver age?
+	H:	H0: There is a direct dependency between color and driver age.
+		H0: There is not any dependency between color and driver age.
+	T: Scatter plot colored by color variable to see if there is a relation between these two variables
+	
+- Study 3:
+	Q: Can we predict the cost of the car from other variables as qsec, mpg, and driver age?
+	H:	H0: Cost of the car is affected by measures of qsec, mpg, and driver age.
+		Ha: Cost of the car is NOT affected by measures of qsec, mpg, and driver age.
+	T: Multilinear regression test (cost ~ qsec, mpg, and driver age)
+	NOTE: Additional scatter and linear model can be plot to better display dependencies
+
+- Study 4:
+	Q: Is the fuel efficiency affected by the engine? EV vs not EV.
+	H:	H0: The mean of the fuel efficiency is the same for EV and not EV cars.
+		Ha: The mean of the fuel efficiency is different for EV and not EV cars.
+	T: A pair t-test (group of EVs and not EVs).
+
+- Study 5:
+	Q: Is the fuel efficiency constant for all car types?
+	H:	H0: The means of all groups are equal. (µ1 = µ2 = … = µn).
+		Ha: At least one of the means is different from all other groups.
+	T: ANOVA one way
+
+
+DATA NEEDED TO BE COLLECTED:
+For this though analysis data for each mentioned magnitude in metrics paragraph is needed:
+car cost, fuel efficiency, color, electric vehicle (T/F), car type (SUV, truck, sedan, sportive, convertible...), driver age and qsec.
+A table relating car type, driver age or color can be collected from historical data, as it will only affect depending on the car type 
+the new prototype fits in and in future which colors should be opted for better sales.  
